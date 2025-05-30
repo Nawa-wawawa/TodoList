@@ -40,7 +40,7 @@
 				<h2>タスクの一覧</h2>
 				<div class="list border border-dark">
 					<c:forEach var="item" items="${tasklist}">
-						<div class="accordion mb-3" id="accordion${item.id}">
+						<div class="accordion" id="accordion${item.id}">
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="heading${item.id}">
 									<button class="accordion-button" type="button"
