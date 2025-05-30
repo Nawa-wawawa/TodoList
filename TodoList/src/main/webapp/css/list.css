@@ -1,0 +1,13 @@
+body {
+  background-color: whitesmoke;
+}
+.taskcolorb{
+    background-color:rgba(0, 0, 255, 0.5);
+    
+}
+.taskcolory{
+    background-color: rgba(234, 255, 0,0.5);
+}
+.taskcolorr{
+  background-color:rgb(255, 0, 0,0.5);  
+}
