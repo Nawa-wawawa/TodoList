@@ -8,7 +8,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="css/bootstrap.min.css" rel="stylesheet" />
-<link href="css/login.css" rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.10/dist/css/tempus-dominus.min.css" />
 <title>新規タスクの設定</title>
 </head>
 
@@ -143,11 +144,8 @@
 
 
 	<script src="js/bootstrap.bundle.min.js" defer></script>
-	<link rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.10/dist/css/tempus-dominus.min.css" />
-	<script
-		src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.10/dist/js/tempus-dominus.min.js"></script>
-	<script src="js/new.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.10/dist/js/tempus-dominus.min.js" defer></script>
+	<script src="js/new.js" defer></script>
 </body>
 
 </html>

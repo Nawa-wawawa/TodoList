@@ -15,8 +15,6 @@ import utils.Db;
 
 public class TodoService {
 
-
-
 	public ArrayList<Todo> select() {
 		ArrayList<Todo> Todolist = new ArrayList<>();
 		String sql = "select * from tasklist ;";
@@ -31,11 +29,11 @@ public class TodoService {
 						rs.getString("task"),
 						LocalDate.parse(rs.getString("deadline")),
 						rs.getString("name"));
-				System.out.println(rs.getInt("id") +
-						rs.getString("status") +
-						rs.getString("task") +
-						LocalDate.parse(rs.getString("deadline")) +
-						rs.getString("name"));
+//				System.out.println(rs.getInt("id") +
+//						rs.getString("status") +
+//						rs.getString("task") +
+//						LocalDate.parse(rs.getString("deadline")) +
+//						rs.getString("name"));
 				Todolist.add(todo);
 			}
 		} catch (SQLException e) {
@@ -65,7 +63,7 @@ public class TodoService {
 
 			ps.executeUpdate();
 
-			System.out.println(todo.getStatus() + "service");
+		//	System.out.println(todo.getStatus() + "service");
 			//			if (res.next()) {
 			//				id = res.getInt(1);
 			//			}
@@ -77,6 +75,46 @@ public class TodoService {
 			e1.printStackTrace();
 		}
 		//return id;
+	}
+
+	public void update(Todo todo) {
+		String sql = "UPDATE tasklist SET status = ?, task = ?, deadline = ?, name = ? WHERE id = ?";
+		try (
+				Connection use_connection = Db.open();
+				PreparedStatement ps = use_connection.prepareStatement(sql);) {
+			ps.setString(1, todo.getStatus());
+			ps.setString(2, todo.getTask()); 
+			ps.setDate(3, Date.valueOf(todo.getDeadline())); 
+			ps.setString(4, todo.getName()); 
+			ps.setInt(5, todo.getId()); 
+			ps.executeUpdate();
+
+			System.out.println("更新の完了");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		}
+	}
+
+	public void delete(int id) {
+		String sql = "DELETE  FROM tasklist WHERE id = ?";
+
+		try (
+				Connection use_connection = Db.open();
+				PreparedStatement ps = use_connection.prepareStatement(sql);) {
+			ps.setInt(1, id);
+			int result = ps.executeUpdate();
+			System.out.println(result);
+			System.out.println("削除の完了");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		}
+
 	}
 
 }

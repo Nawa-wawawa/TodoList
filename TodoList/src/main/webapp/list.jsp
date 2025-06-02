@@ -43,13 +43,13 @@
 						<div class="accordion" id="accordion${item.id}">
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="heading${item.id}">
-									<button class="accordion-button" type="button"
+									<button class="accordion-button collapsed" type="button"
 										data-bs-toggle="collapse" data-bs-target="#collapse${item.id}"
-										aria-expanded="true" aria-controls="collapse${item.id}">
+										aria-expanded="false" aria-controls="collapse${item.id}">
 										${item.task}</button>
+
 								</h2>
-								<div id="collapse${item.id}"
-									class="accordion-collapse collapse show"
+								<div id="collapse${item.id}" class="accordion-collapse collapse"
 									aria-labelledby="heading${item.id}"
 									data-bs-parent="#accordion${item.id}">
 									<div class="accordion-body">

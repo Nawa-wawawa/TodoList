@@ -1,12 +1,22 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import javax.naming.NamingException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import beans.Todo;
+import todoservices.TodoService;
+import utils.Db;
 
 /**
  * Servlet implementation class UpdateServlet
@@ -27,15 +37,52 @@ public class UpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		ArrayList<Todo> tasklist = null;
+
+		try (Connection con = Db.open()) {
+			TodoService sv = new TodoService();
+			tasklist = sv.select();
+//			for(Todo list:tasklist) {
+//				System.out.println(list.getName());
+//			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		}
+
+		request.setAttribute("tasklist",tasklist);	
 		request.getRequestDispatcher("/updatetasks.jsp").forward(request, response);	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		try (Connection con = Db.open()) {
+			
+			int id = Integer.parseInt(request.getParameter("id"));
+			
+			String status = (request.getParameter("status"));
+			String task = (request.getParameter("task"));
+			String dateStr = request.getParameter("deadline");
+			LocalDate deadline = LocalDate.parse(dateStr.replace("年", "-").replace("月", "-").replace("日", ""));
+
+			String name = (request.getParameter("name"));
+
+			System.out.println(request.getParameter("status") + "servlet");
+
+			Todo todo = new Todo(id,status, task, deadline, name);
+
+			TodoService sv = new TodoService();
+
+			sv.update(todo);
+
+		} catch (SQLException | NamingException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		response.sendRedirect(request.getContextPath() + "/ListServlet");
 	}
 
 }
