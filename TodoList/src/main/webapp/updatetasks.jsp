@@ -21,7 +21,7 @@
 			</div>
 			<div
 				class="col-2 bg-info d-grid gap-2 d-md-flex justify-content-md-end p-2">
-				<a href="LoginServlet" class="btn btn-primary" role="button"
+				<a href="LogoutServlet" class="btn btn-primary" role="button"
 					aria-disabled="true">ログアウト</a>
 			</div>
 		</div>

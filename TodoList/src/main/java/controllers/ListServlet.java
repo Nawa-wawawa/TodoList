@@ -12,9 +12,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import beans.Todo;
-import todoservices.TodoService;
+import services.TodoService;
 import utils.Db;
 
 /**
@@ -23,26 +24,34 @@ import utils.Db;
 @WebServlet("/ListServlet")
 public class ListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ListServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+		HttpSession session = request.getSession(false);
+		if (session == null || session.getAttribute("loginUserId") == null) {
+			response.sendRedirect("LoginServlet");
+			return;
+		}
+
 		ArrayList<Todo> tasklist = null;
 
 		try (Connection con = Db.open()) {
 			TodoService sv = new TodoService();
 			tasklist = sv.select();
-			for(Todo list:tasklist) {
+			for (Todo list : tasklist) {
 				System.out.println(list.getName());
 			}
 		} catch (SQLException e) {
@@ -52,14 +61,15 @@ public class ListServlet extends HttpServlet {
 			e1.printStackTrace();
 		}
 
-		request.setAttribute("tasklist",tasklist);	
+		request.setAttribute("tasklist", tasklist);
 		request.getRequestDispatcher("/list.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

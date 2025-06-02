@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import beans.Todo;
-import todoservices.TodoService;
+import services.TodoService;
 import utils.Db;
 
 /**
@@ -37,6 +37,8 @@ public class NewtaskServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+
 		// TODO Auto-generated method stub
 		request.getRequestDispatcher("/newtask.jsp").forward(request, response);
 	}

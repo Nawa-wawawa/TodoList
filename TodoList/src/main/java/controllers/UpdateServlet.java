@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import beans.Todo;
-import todoservices.TodoService;
+import services.TodoService;
 import utils.Db;
 
 /**
@@ -24,27 +24,30 @@ import utils.Db;
 @WebServlet("/UpdateServlet")
 public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UpdateServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UpdateServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+
 		ArrayList<Todo> tasklist = null;
 
 		try (Connection con = Db.open()) {
 			TodoService sv = new TodoService();
 			tasklist = sv.select();
-//			for(Todo list:tasklist) {
-//				System.out.println(list.getName());
-//			}
+			//			for(Todo list:tasklist) {
+			//				System.out.println(list.getName());
+			//			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (NamingException e1) {
@@ -52,17 +55,19 @@ public class UpdateServlet extends HttpServlet {
 			e1.printStackTrace();
 		}
 
-		request.setAttribute("tasklist",tasklist);	
-		request.getRequestDispatcher("/updatetasks.jsp").forward(request, response);	}
+		request.setAttribute("tasklist", tasklist);
+		request.getRequestDispatcher("/updatetasks.jsp").forward(request, response);
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try (Connection con = Db.open()) {
-			
+
 			int id = Integer.parseInt(request.getParameter("id"));
-			
+
 			String status = (request.getParameter("status"));
 			String task = (request.getParameter("task"));
 			String dateStr = request.getParameter("deadline");
@@ -72,7 +77,7 @@ public class UpdateServlet extends HttpServlet {
 
 			System.out.println(request.getParameter("status") + "servlet");
 
-			Todo todo = new Todo(id,status, task, deadline, name);
+			Todo todo = new Todo(id, status, task, deadline, name);
 
 			TodoService sv = new TodoService();
 

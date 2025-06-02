@@ -1,9 +1,13 @@
 body {
-    background-color: whitesmoke;
+	background-color: whitesmoke;
+
 }
 
-.hako{
-    background-color: azure;
-    width: 60%;
-    height: 20%;
+.hako {
+	background-color: azure;
+	width: 100%;
+
+	max-width: 600px;
+
+	padding: 1rem;
 }

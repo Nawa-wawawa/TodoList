@@ -12,20 +12,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import services.TodoService;
+import beans.Login;
+import services.mkuserService;
 import utils.Db;
 
 /**
- * Servlet implementation class DeleteServlet
+ * Servlet implementation class NewloginServlet
  */
-@WebServlet("/DeleteServlet")
-public class DeleteServlet extends HttpServlet {
+@WebServlet("/MkuserServlet")
+public class MkuserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DeleteServlet() {
+	public MkuserServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,7 +36,7 @@ public class DeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.getRequestDispatcher("/newlogin.jsp").forward(request, response);
 	}
 
 	/**
@@ -44,22 +45,26 @@ public class DeleteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try (Connection con = Db.open()) {
-
-			int id = Integer.parseInt(request.getParameter("id"));
-
-			TodoService ps = new TodoService();
-			ps.delete(id);
-
+			mkuserService mkuser = new mkuserService();
+			String mail = (request.getParameter("mail"));
+			String pass = (request.getParameter("pass"));
+			String name = (request.getParameter("name"));
+			
+			
+		//	System.out.println(mail+pass+name);
+			
+			Login New_acount = new Login(mail,pass,name);
+			
+			mkuser.insert(New_acount);
+			
 		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
-		} catch (NamingException e) {
+		} catch (NamingException e1) {
 			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
 
-		response.sendRedirect(request.getContextPath() + "/UpdateServlet");
-
+		response.sendRedirect(request.getContextPath() + "/LoginServlet");
 	}
 
 }
