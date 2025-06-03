@@ -37,7 +37,13 @@
 			</div>
 			<div class="col-sm-8 col-12 p-2 border border-dark "
 				style="background-color: azure;">
-				<h2>タスクの一覧</h2>
+				<div>
+					<h2>タスクの一覧</h2>
+					<a href="PersonalListSetvlet" class="btn btn-primary" role="button"
+					aria-disabled="true">のタスク</a>
+					<a href="ListServlet" class="btn btn-primary" role="button"
+					aria-disabled="true">みんなのタスク</a>
+				</div>
 				<div class="list border border-dark">
 					<c:forEach var="item" items="${tasklist}">
 						<div class="accordion" id="accordion${item.id}">
@@ -106,6 +112,7 @@
 		</div>
 	</div>
 	<script src="js/bootstrap.bundle.min.js" defer></script>
+
 </body>
 
 </html>

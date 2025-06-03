@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import beans.Todo;
 import services.TodoService;
@@ -73,15 +74,15 @@ public class UpdateServlet extends HttpServlet {
 			String dateStr = request.getParameter("deadline");
 			LocalDate deadline = LocalDate.parse(dateStr.replace("年", "-").replace("月", "-").replace("日", ""));
 
-			String name = (request.getParameter("name"));
+		//	System.out.println(request.getParameter("status") + "servlet");
 
-			System.out.println(request.getParameter("status") + "servlet");
-
-			Todo todo = new Todo(id, status, task, deadline, name);
+			Todo todo = new Todo(id, status, task, deadline);
 
 			TodoService sv = new TodoService();
+			HttpSession session = request.getSession();
+			int user_id = (int) session.getAttribute("loginUserId");
 
-			sv.update(todo);
+			sv.update(todo,user_id);
 
 		} catch (SQLException | NamingException e) {
 			// TODO 自動生成された catch ブロック

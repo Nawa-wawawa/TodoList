@@ -153,9 +153,12 @@
 													<select class="form-select"
 														aria-label="Default select example" id="task-status"
 														name="status">
-														<option value="未着手">未着手</option>
-														<option value="着手中">着手中</option>
-														<option value="完了">完了</option>
+														<option value="未着手"
+															${item.status == '未着手' ? 'selected' : ''}>未着手</option>
+														<option value="着手中"
+															${item.status == '着手中' ? 'selected' : ''}>着手中</option>
+														<option value="完了"
+															${item.status == '完了' ? 'selected' : ''}>完了</option>
 													</select>
 												</div>
 
@@ -163,21 +166,15 @@
 												<div class="input-group mb-3">
 													<span class="input-group-text" id="basic-addon2">タスク名</span>
 													<input type="text" class="form-control" id="task-name"
-														name="task" aria-describedby="basic-addon2">
+														name="task" aria-describedby="basic-addon2" required
+														value="${item.task}" />
 												</div>
 
 												<!-- 期限 -->
 												<div class="input-group mb-3">
 													<span class="input-group-text" id="basic-addon3">期限
-													</span> <input type="text" class="form-control" id="datepicker"
-														name="deadline" />
-												</div>
-
-												<!-- 担当者 -->
-												<div class="input-group mb-3">
-													<span class="input-group-text" id="basic-addon4">担当者</span>
-													<input type="text" class="form-control" id="assignee"
-														name="name" aria-describedby="basic-addon4">
+													</span> <input type="date" class="form-control" id="datepicker"
+														name="deadline" required value="${item.deadline}" />
 												</div>
 												<input type="hidden" name="id" value="${item.getId()}">
 											</div>
@@ -199,12 +196,12 @@
 		</div>
 	</div>
 	<script src="js/bootstrap.bundle.min.js" defer></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.10/dist/js/tempus-dominus.min.js"
-		defer></script>
-	<script src="js/new.js" defer></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+	<!--	<script-->
+	<!--		src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.10/dist/js/tempus-dominus.min.js"-->
+	<!--		defer></script>-->
+	<!--	<script src="js/new.js" defer></script>-->
+	<!--	<script-->
+	<!--		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>-->
 
 </body>
 

@@ -28,13 +28,12 @@
 				style="background-color: azure;">
 				<h2>新規タスクの設定</h2>
 				<h4>
-					<a href="ListServlet">タスクの一覧</a><br>
-					<a href="UpdateServlet">タスクの更新</a><br>
+					<a href="ListServlet">タスクの一覧</a><br> <a href="UpdateServlet">タスクの更新</a><br>
 				</h4>
 
 			</div>
 			<div class="col-sm-8 col-12 p-3" style="background-color: azure;">
-				<form id="form" name="form" method ="post" action="NewtaskServlet">
+				<form id="form" name="form" method="post" action="NewtaskServlet">
 					<div class="mb-3">
 						<!-- 新規作成ラベル -->
 						<label for="task-status" class="form-label"><h4>新規作成</h4></label>
@@ -43,7 +42,7 @@
 						<div class="input-group mb-3">
 							<span class="input-group-text" id="basic-addon">状態 </span> <select
 								class="form-select" aria-label="Default select example"
-								id="task-status"name ="status">
+								id="task-status" name="status">
 								<option value="未着手">未着手</option>
 								<option value="着手中">着手中</option>
 								<option value="完了">完了</option>
@@ -53,22 +52,19 @@
 						<!-- タスク名 -->
 						<div class="input-group mb-3">
 							<span class="input-group-text" id="basic-addon2">タスク名</span> <input
-								type="text" class="form-control" id="task-name" name = "task"
-								aria-describedby="basic-addon2">
+								type="text" class="form-control" id="task-name" name="task"
+								aria-describedby="basic-addon2" required />
 						</div>
 
 						<!-- 期限 -->
 						<div class="input-group mb-3">
 							<span class="input-group-text" id="basic-addon3">期限 </span> <input
-								type="text" class="form-control" id="datepicker" name = "deadline"/>
+								type="date" class="form-control" id="datepicker" name="deadline"
+								required />
 						</div>
 
-						<!-- 担当者 -->
-						<div class="input-group mb-3">
-							<span class="input-group-text" id="basic-addon4">担当者</span> <input
-								type="text" class="form-control" id="assignee" name = "name"
-								aria-describedby="basic-addon4">
-						</div>
+
+
 					</div>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 						<button type="button" class="btn btn-primary"
@@ -87,43 +83,33 @@
 								<div class="modal-body">
 									<div class="row">
 										<div class="row">
-											<div class="col-sm-4 col-12 ps-2 pt-2 border border-dark "
+											<div class="col-sm-4 col-12 ps-2 pt-2 border border-dark"
 												style="background-color: azure;">
-												<p><c*:out = /> </p>
+												<p>状態</p>
 											</div>
 											<div class="col-sm-8 col-12 ps-2 pt-2 border border-dark"
 												style="background-color: azure;">
-												<p>完了</p>
+												<p id="modal-status"></p>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-sm-4 col-12 ps-2 pt-2 border border-dark "
+											<div class="col-sm-4 col-12 ps-2 pt-2 border border-dark"
 												style="background-color: azure;">
 												<p>タスク名</p>
 											</div>
-											<div class="col-sm-8 col-12 ps-2 pt-2 border border-dark "
+											<div class="col-sm-8 col-12 ps-2 pt-2 border border-dark"
 												style="background-color: azure;">
-												<p>HTML研修</p>
+												<p id="modal-task"></p>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-sm-4 col-12 ps-2 pt-2 border border-dark "
+											<div class="col-sm-4 col-12 ps-2 pt-2 border border-dark"
 												style="background-color: azure;">
 												<p>期限</p>
 											</div>
-											<div class="col-sm-8 col-12 ps-2 pt-2 border border-dark "
+											<div class="col-sm-8 col-12 ps-2 pt-2 border border-dark"
 												style="background-color: azure;">
-												<p>２０２５年４月２３日</p>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-4 col-12 ps-2 pt-2 border border-dark "
-												style="background-color: azure;">
-												<p>担当者</p>
-											</div>
-											<div class="col-sm-8 col-12 ps-2 pt-2 border border-dark "
-												style="background-color: azure;">
-												<p>ナワ ユウマ</p>
+												<p id="modal-deadline"></p>
 											</div>
 										</div>
 									</div>
@@ -142,10 +128,25 @@
 		</div>
 	</div>
 
+	<script>
+		// ボタン押下時にモーダルの内容をセットする例
+		document
+				.querySelector('button[data-bs-toggle="modal"]')
+				.addEventListener(
+						'click',
+						function() {
+							const status = document
+									.getElementById('task-status').value;
+							const task = document.getElementById('task-name').value;
+							const deadline = document
+									.getElementById('datepicker').value;
 
+							document.getElementById('modal-status').textContent = status;
+							document.getElementById('modal-task').textContent = task;
+							document.getElementById('modal-deadline').textContent = deadline;
+						});
+	</script>
 	<script src="js/bootstrap.bundle.min.js" defer></script>
-	<script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.10/dist/js/tempus-dominus.min.js" defer></script>
-	<script src="js/new.js" defer></script>
 </body>
 
 </html>

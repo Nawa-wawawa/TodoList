@@ -8,8 +8,22 @@ public class Todo {
 	private String task;
 	private LocalDate deadline;
 	private String name;
-	
-	
+
+	public Todo(int id,String status, String task, LocalDate deadline) {
+		super();
+		this.id =id;
+		this.status = status;
+		this.task = task;
+		this.deadline = deadline;
+	}
+	public Todo(String status, String task, LocalDate deadline, String name) {
+		super();
+		this.status = status;
+		this.task = task;
+		this.deadline = deadline;
+		this.name = name;
+	}
+
 	public Todo(int id, String status, String task, LocalDate deadline, String name) {
 		super();
 		this.id = id;
@@ -19,13 +33,6 @@ public class Todo {
 		this.name = name;
 	}
 	
-	public Todo( String status, String task, LocalDate deadline, String name) {
-		super();
-		this.status = status;
-		this.task = task;
-		this.deadline = deadline;
-		this.name = name;
-	}
 
 	public int getId() {
 		return id;
@@ -66,5 +73,4 @@ public class Todo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 }

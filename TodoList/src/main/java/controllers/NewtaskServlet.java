@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import beans.Todo;
 import services.TodoService;
@@ -38,7 +39,6 @@ public class NewtaskServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-
 		// TODO Auto-generated method stub
 		request.getRequestDispatcher("/newtask.jsp").forward(request, response);
 	}
@@ -54,16 +54,18 @@ public class NewtaskServlet extends HttpServlet {
 			String task = (request.getParameter("task"));
 			String dateStr = request.getParameter("deadline");
 			LocalDate deadline = LocalDate.parse(dateStr.replace("年", "-").replace("月", "-").replace("日", ""));
-
-			String name = (request.getParameter("name"));
-
-			System.out.println(request.getParameter("status") + "servlet");
-
-			Todo todo = new Todo(status, task, deadline, name);
-
+			
+			HttpSession session = request.getSession();
+			int user_id = (int) session.getAttribute("loginUserId");
+		
 			TodoService sv = new TodoService();
+			String user_name =  sv.getUsername(user_id);
+			
+//			System.out.println(request.getParameter("status") + "servlet");
+			
+			Todo todo = new Todo(status, task, deadline, user_name);
 
-			sv.insert(todo);
+			sv.insert(todo,user_id);
 
 		} catch (SQLException | NamingException e) {
 			// TODO 自動生成された catch ブロック
