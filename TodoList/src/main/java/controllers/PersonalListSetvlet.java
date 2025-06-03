@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import beans.Todo;
 import services.TodoService;
@@ -37,11 +38,16 @@ public class PersonalListSetvlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
 		ArrayList<Todo> tasklist = null;
+		String name = "";
+		HttpSession session = request.getSession();
+		int user_id = (int) session.getAttribute("loginUserId");
 
 		try (Connection con = Db.open()) {
 			TodoService sv = new TodoService();
-			tasklist = sv.select();
+			tasklist = sv.select(user_id);
+			name = sv.getUsername(user_id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (NamingException e1) {
@@ -49,7 +55,10 @@ public class PersonalListSetvlet extends HttpServlet {
 			e1.printStackTrace();
 		}
 
+		
+		
 		request.setAttribute("tasklist", tasklist);
+		request.setAttribute("name", name);
 		request.getRequestDispatcher("/list.jsp").forward(request, response);
 	}
 

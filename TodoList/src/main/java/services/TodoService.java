@@ -40,6 +40,33 @@ public class TodoService {
 		return Todolist;
 	}
 
+	public ArrayList<Todo> select(int i) {
+		ArrayList<Todo> Todolist = new ArrayList<>();
+		String sql = "SELECT tasklist.*, loglist.name ,loglist.id FROM tasklist JOIN loglist ON tasklist.user_id = loglist.id;";
+		try (
+				Connection use_connection = Db.open();
+				PreparedStatement ps = use_connection.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery();) {
+			while (rs.next()) {
+				if (i == rs.getInt("loglist.id")) {
+					Todo todo = new Todo(
+							rs.getInt("id"),
+							rs.getString("status"),
+							rs.getString("task"),
+							LocalDate.parse(rs.getString("deadline")),
+							rs.getString("loglist.name"));
+					Todolist.add(todo);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		}
+		return Todolist;
+	}
+
 	public void insert(Todo todo, int id) {
 
 		String sql = "INSERT INTO tasklist (status,task,deadline,user_id) VALUES (?,?,?,?)";
@@ -52,7 +79,7 @@ public class TodoService {
 			ps.setString(1, todo.getStatus());
 			ps.setString(2, todo.getTask());
 			ps.setDate(3, Date.valueOf(todo.getDeadline()));
-			ps.setInt(4,id);
+			ps.setInt(4, id);
 
 			//			ResultSet res = ps.getGeneratedKeys();
 
@@ -80,7 +107,7 @@ public class TodoService {
 			ps.setString(1, todo.getStatus());
 			ps.setString(2, todo.getTask());
 			ps.setDate(3, Date.valueOf(todo.getDeadline()));
-			ps.setInt(4,id);
+			ps.setInt(4, id);
 			ps.setInt(5, todo.getId());
 			ps.executeUpdate();
 
@@ -136,6 +163,5 @@ public class TodoService {
 
 		return userName;
 	}
-	
 
 }

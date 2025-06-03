@@ -42,13 +42,14 @@ public class UpdateServlet extends HttpServlet {
 
 
 		ArrayList<Todo> tasklist = null;
+		HttpSession session = request.getSession();
+		int user_id = (int) session.getAttribute("loginUserId");
 
 		try (Connection con = Db.open()) {
 			TodoService sv = new TodoService();
-			tasklist = sv.select();
-			//			for(Todo list:tasklist) {
-			//				System.out.println(list.getName());
-			//			}
+			
+			tasklist = sv.select(user_id);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (NamingException e1) {

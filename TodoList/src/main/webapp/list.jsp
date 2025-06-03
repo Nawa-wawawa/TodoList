@@ -40,7 +40,7 @@
 				<div>
 					<h2>タスクの一覧</h2>
 					<a href="PersonalListSetvlet" class="btn btn-primary" role="button"
-					aria-disabled="true">のタスク</a>
+					aria-disabled="true">${name}のタスク</a>
 					<a href="ListServlet" class="btn btn-primary" role="button"
 					aria-disabled="true">みんなのタスク</a>
 				</div>

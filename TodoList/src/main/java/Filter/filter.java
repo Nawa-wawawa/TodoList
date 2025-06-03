@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 
 
 
-@WebFilter(urlPatterns = {"/ListServlet","/DeleteServlet","/UpdateServlet","/NewtaskServlet"}) 
+@WebFilter(urlPatterns = {"/ListServlet","/DeleteServlet","/UpdateServlet","/NewtaskServlet","/PersonalListSetvlet"}) 
 public class filter implements Filter {
 
     @Override
