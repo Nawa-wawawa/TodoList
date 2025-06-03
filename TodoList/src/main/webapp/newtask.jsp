@@ -62,9 +62,6 @@
 								type="date" class="form-control" id="datepicker" name="deadline"
 								required />
 						</div>
-
-
-
 					</div>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 						<button type="button" class="btn btn-primary"
@@ -128,24 +125,9 @@
 		</div>
 	</div>
 
-	<script>
-		// ボタン押下時にモーダルの内容をセットする例
-		document
-				.querySelector('button[data-bs-toggle="modal"]')
-				.addEventListener(
-						'click',
-						function() {
-							const status = document
-									.getElementById('task-status').value;
-							const task = document.getElementById('task-name').value;
-							const deadline = document
-									.getElementById('datepicker').value;
+	<script src="js/todo.js" defer></script>
+	<script src="js/date.js" defer></script>
 
-							document.getElementById('modal-status').textContent = status;
-							document.getElementById('modal-task').textContent = task;
-							document.getElementById('modal-deadline').textContent = deadline;
-						});
-	</script>
 	<script src="js/bootstrap.bundle.min.js" defer></script>
 </body>
 

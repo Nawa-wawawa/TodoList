@@ -173,8 +173,9 @@
 												<!-- 期限 -->
 												<div class="input-group mb-3">
 													<span class="input-group-text" id="basic-addon3">期限
-													</span> <input type="date" class="form-control" id="datepicker"
-														name="deadline" required value="${item.deadline}" />
+													</span> <input type="date" class="form-control"
+														id="datepicker${item.getId()}" name="deadline" required
+														value="${item.deadline}" />
 												</div>
 												<input type="hidden" name="id" value="${item.getId()}">
 											</div>
@@ -184,6 +185,7 @@
 												data-bs-dismiss="modal">戻る</button>
 											<button class="btn btn-primary" type="submit"
 												aria-disabled="true">確定</button>
+
 										</div>
 									</form>
 								</div>
@@ -195,7 +197,10 @@
 			</div>
 		</div>
 	</div>
+
+	<script src="js/date.js" defer></script>
 	<script src="js/bootstrap.bundle.min.js" defer></script>
+
 	<!--	<script-->
 	<!--		src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.10/dist/js/tempus-dominus.min.js"-->
 	<!--		defer></script>-->
